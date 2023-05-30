@@ -8,3 +8,9 @@ To run DataPreprocessor.java be sure to have the "Spruce_fingerprint_2017-03-10_
 -"java DataPreprocessor" (to run the program after compiling).
 
 When you have done this the program should have created a text-file named "preprocessed_data.txt".
+
+
+To run BuildGraphFromPreprocessedData.java be sure to have "preprocessed_data.txt" in the same repository and run the following commands:
+- javac BuildGraphFromPreprocessedData.java
+- java -Xss1G -Xms7G BuildGraphFromPreprocessedData
+When you have done this the program should have created a csv-file called "node_degree_distribution.csv".
