@@ -30,3 +30,17 @@ The project aims to analyze, visualize, and understand a graph G=(V, E) generate
  -  Find component Density Distribution.
 3. The java program "DataPreprocessor.java" has been created to clean the data. The code reads the genome data from the input file, processes it, and writes the preprocessed data into the output file. The preprocessed data consists of integer identifiers for the contigs and the respective start, end, and length information. The outcome facilitates downstream tasks in the genome assembly project by providing cleaned, structured, and consistent data. 
 
+## Day 2 - 2023-05-28
+
+**Tasks Undertaken:**
+1. Today's efforts were concentrated on constructing a graph representation from the preprocessed genome assembly dataset. The goal is to provide a more intimate understanding of the intricacies of the dataset by visualizing its structure in the form of a graph.
+2. We formulated an 'Edge' class to symbolize the connections in the graph. Each 'Edge' object holds the information about a pair of overlapping contigs, inclusive of the start, end, and the span of the overlap for each contig. This detail is instrumental in decoding the relationships and structure within the dataset.
+3. We also devised a 'Graph' class that embodies the entire graph, designed as an adjacency list. It is a HashMap where each key is a vertex (an integer), and the corresponding value is a list of edges that originate from that vertex. This kind of data structure facilitates easy addition of edges and simplifies our approach towards data analysis in a graph-based environment.
+4. We implemented the 'BuildGraphFromPreprocessedData' class that ingests the preprocessed dataset, builds the graph, and computes and records the degree of each node in the graph.
+
+**Results:**
+1. We produced the 'BuildGraphFromPreprocessedData.java' Java program to construct a graph from the preprocessed data. The program reads the preprocessed data from a file, constructs the graph, and calculates the degree of each node. A node's degree is the count of edges connected to it, which gives valuable insights into the importance of the node in the structure of the graph.
+2. The program also writes the degree distribution (the frequency of each degree) into a CSV file. This information will aid in understanding the node degree distribution of the graph, a fundamental attribute of a graph, which can reveal insights about the overall structure of the graph and the characteristics of the genome assembly.
+3. The test run of the program successfully built the graph from the preprocessed data and calculated the node degree distribution. It outputted the message "Successfully built the graph from preprocessed data." as expected.
+4. The future tasks include continuing the graph-based analyses, specifically computing the count of components with at least three vertices and the component density distribution. Today's progress sets a solid groundwork for these upcoming tasks.
+
