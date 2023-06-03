@@ -41,12 +41,18 @@ public class DataPreprocessor {
             // Parse the other columns of the line
             int start1 = Integer.parseInt(tokens[5]);
             int end1 = Integer.parseInt(tokens[6]);
-            int length1 = Integer.parseInt(tokens[7]);
             int start2 = Integer.parseInt(tokens[9]);
             int end2 = Integer.parseInt(tokens[10]);
-            int length2 = Integer.parseInt(tokens[11]);
-            // Write the preprocessed data into the output file
-            writer.write(String.format("%d %d %d %d %d %d %d %d\n", v1, v2, start1, end1, length1, start2, end2, length2));
+
+            // Calculate the overlap lengths
+            int overlapLength1 = end1 - start1;
+            int overlapLength2 = end2 - start2;
+
+            // Check if the overlap is 'sufficiently large' in both sequences
+            if (overlapLength1 >= 1000 && overlapLength2 >= 1000) {
+                // Write the preprocessed data into the output file
+                writer.write(String.format("%d %d %d %d %d %d\n", v1, v2, start1, end1, start2, end2));
+            }
         }
         // Close the BufferedReader and the BufferedWriter
         reader.close();
