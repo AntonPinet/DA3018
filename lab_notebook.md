@@ -44,3 +44,26 @@ The project aims to analyze, visualize, and understand a graph G=(V, E) generate
 3. The test run of the program successfully built the graph from the preprocessed data and calculated the node degree distribution. It outputted the message "Successfully built the graph from preprocessed data." as expected.
 4. The future tasks include continuing the graph-based analyses, specifically computing the count of components with at least three vertices and the component density distribution. Today's progress sets a solid groundwork for these upcoming tasks.
 
+
+## Day 3 - 2023-05-31
+
+**Planned Activities:**
+
+1. **Generate Smaller Datasets:** Our first task for the day will be to generate smaller subsets from our preprocessed data file. This will provide us with datasets of varying sizes, perfect for initial testing of our `BuildGraphFromPreprocessedData.java` program.
+
+2. **Test BuildGraphFromPreprocessedData.java:** Post dataset generation, we plan to run our `BuildGraphFromPreprocessedData.java` program on these subsets. This should allow us to evaluate the program's functionality and efficiency in constructing the graph and computing the node degree distribution.
+
+3. **Develop Component-Identifying Algorithm:** After testing, our goal is to begin the development of a new feature in `BuildGraphFromPreprocessedData.java`, an algorithm that identifies the components of the graph G with at least three vertices. For this, we intend to use a depth-first search algorithm.
+
+4. **Start Work on Density Distribution:** Once we have the component-identifying algorithm set up, we plan to start work on finding the density distribution of the components. Our initial step will be to study the properties of density in graph theory to inform the design of our algorithm.
+
+**Expected Outcomes:**
+
+1. A collection of smaller datasets derived from our preprocessed data file for testing and analysis.
+
+2. Preliminary evaluation of `BuildGraphFromPreprocessedData.java`'s ability to build a graph and calculate the node degree distribution.
+
+3. The first draft of our algorithm for finding components of the graph G with at least three vertices.
+
+4. Initiated exploration into graph density to guide our approach for determining the component density distribution, one of the three computational problems we identified at the start of the project.
+
