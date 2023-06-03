@@ -67,3 +67,74 @@ The project aims to analyze, visualize, and understand a graph G=(V, E) generate
 
 4. Initiated exploration into graph density to guide our approach for determining the component density distribution, one of the three computational problems we identified at the start of the project.
 
+## Day 4 - 2023-06-01
+
+### Activities Undertaken:
+1. **Analysis of Preliminary Results:** Upon analyzing the results of running our `BuildGraphFromPreprocessedData.java` on the smaller datasets, we noticed some inconsistencies with the expected outcomes. After a thorough examination of the preprocessing stage and the resulting graph, we discovered that there was a problem with how overlaps were treated in our data preprocessor.
+2. **Diagnosis and Solution Design:** Our initial design treated overlaps of 1000 or less as non-overlaps and didn't consider them in creating edges in the graph. However, the project specification defined overlaps as "sufficiently large" if they had a length of at least 1000. This discrepancy necessitated a modification in our `DataPreprocessor.java`.
+3. **Implementation of Solution:** We modified our `DataPreprocessor.java` to only consider overlaps "sufficiently large" if they have a length of at least 1000 in both sequences. This ensures that the edges in our graph only represent significant overlaps and are consistent with the project's definition.
+4. **Subset Data Generation:** To support the validation of our revised preprocessing and graph generation processes, we created the `GenerateSubset.java` program. This program generates subsets of varying sizes from the original preprocessed dataset, which we can use for testing and initial evaluation without overloading our resources.
+
+### Outcomes:
+1. A significant error in data preprocessing was identified and corrected. Our revised `DataPreprocessor.java` now only considers overlaps that meet the project's definition of "sufficiently large."
+2. We successfully created the `GenerateSubset.java` program to generate smaller datasets from the original preprocessed data. These smaller datasets will be invaluable for testing and validation of our revised preprocessing and graph generation processes.
+3. These advancements set a solid groundwork for further analyses, specifically for the computation of the count of components with at least three vertices and the component density distribution. We plan to start the development of these features in the following days. 
+4. The testing process using the smaller datasets generated from `GenerateSubset.java` has been planned for the next day. It will provide insights into the correctness and efficiency of our revised `DataPreprocessor.java` and `BuildGraphFromPreprocessedData.java`.
+
+
+## Day 5 - 2023-06-02
+
+### Activities Undertaken:
+
+1. **Revewing the Code and Definitions:** Today, as we looked through the code again, we notised a mistake in our calculation of overlaps. Our project discription defines an overlap between two contigs as a similarity at their ends that is sufficiently large, with a length of at least 1000 in both sequences. However, in our initional implementation, we were mistakenly considering the entire length of the contig as the overlap. This oversight in our code did not align with the project's defenition of overlaps.
+
+2. **Clarrifying the Overlap Defenition:** To fix this error, we revisited the definition of overlaps in the project. We realized that the overlap is accurately represented by the fields "Start of overlap in first contig", "End of overlap in first contig", "Start of overlap in second contig", and "End of overlap in second contig" in the data. This understanding led us to see that our previous approach was incorrect.
+
+3. **Implementing the Correct Overlap Calculation:** Having understood the correct definition, we needed to change our `DataPreprocessor.java` to use the correct calculation of overlaps. The new implementation correctly calculates the overlaps as "end1 - start1" and "end2 - start2", and only considers overlaps that are large enough in both sequences.
+
+### Outcomes:
+
+1. Reviewing our code and the project definitions helped us spot an important mistake in our calculation of overlaps. This discovery was crucial for maintaining the accuracy of our project.
+
+2. The revised `DataPreprocessor.java` now correctly calculates overlaps, making sure that only overlaps that are large enough in both sequences are considered. This correction will make sure that the graph that we construct from the preprocessed data accurately represents the overlaps between contigs.
+
+3. This corrected accuracy is expected to have significant positive impact on our further analyses, such as node degree distribution and component density calculations, as these will now be based on more accurate overlap data.
+
+4. Today was a productive day, we found a critical mistake and made a significant improvement in our code. Identifying the error in our overlap calculation and correcting it, ensures that our genome graph analysis is now more closely aligned with the project's definitions and goals.
+
+Moving forward, we will work on developing methods for finding the number of components with at least three vertices and calculating the component density distribution.
+
+## Day 6 - 2023-06-03
+
+**Activities:**
+1. **Refining Edge Class:** The Edge class was further streamlined by removing the attributes length1 and length2, which were determined to be non-essential for our graph processing tasks.
+
+2. **Augmenting Graph Class:** Our Graph class saw a host of enhancements aimed at more efficient computation of component densities:
+    - Added a max_vertex_number attribute to keep track of the largest vertex number in the graph, essential for the correct creation of the visited array in the DFS.
+    - Developed a getVerticesAndEdges() method for the easy computation of total vertices and edges in the graph.
+    - Crafted a calculateDensity() method that determines the density of a connected component.
+    - Engineered a computeComponentDensities() method to calculate the densities of all connected components comprising at least three vertices.
+    - Refined the DFS() and addEdge() methods to better support density calculations and vertex number updates.
+
+3. **Modifying Main Method:** Revisions were made to the main method in BuildGraphFromPreprocessedData.java to accommodate changes in the Edge and Graph classes, and to facilitate the calculation and notation of component densities:
+    - Adjusted the input line parsing to exclude length1 and length2, no longer present in the Edge class.
+    - Included a step to print the total vertices and edges in the graph post construction.
+    - Implemented a process to calculate and record densities of all connected components with a minimum of three vertices in a new "densities.txt" file.
+    - Updated success messages to indicate the creation of the densities file.
+
+4. **Data Visualization Script:** The Python script 'Visualize_data.py' was created to visualize the distributions contained in the 'node_degree_distribution.csv' and 'densities.txt' files. The script uses the matplotlib and pandas libraries to load the data, display it, and plot histograms to represent the node degree and component density distributions.
+
+**Outcomes:**
+1. The Edge class has been optimized, now containing only necessary attributes for more efficient operation and easier management.
+
+2. The Graph class is now more versatile, with an assortment of new methods that allow for easier computation of component densities - a key feature of this project.
+
+3. The main method in BuildGraphFromPreprocessedData.java has been upgraded to accommodate changes in the Edge and Graph classes, and now supports the computation and recording of component densities.
+
+4. Executing the command "java -Xss1G -Xms7G BuildGraphFromPreprocessedData" successfully built the graph from preprocessed data, determined the total number of vertices in the graph (7,960,435), total number of edges in the graph (31,981,447), and total number of connected components with at least three vertices (661,678). The degree distribution was successfully written to 'node_degree_distribution.csv' and the calculated densities were written to the 'densities.txt' file. The JVM parameters -Xss1G and -Xms7G were used to increase the thread stack size to 1G and the initial heap size to 7G, respectively, to ensure sufficient memory for the program given the large size of the data being processed.
+
+5. The 'Visualize_data.py' Python script was successfully executed, generating histograms representing the node degree and component density distributions from the 'node_degree_distribution.csv' and 'densities.txt' files respectively. Here are the histograms:
+
+![Node Degree Distribution Histogram](node_degree_distribution.png)
+![Component Density Distribution Histogram](component_density_distribution.png)
+
